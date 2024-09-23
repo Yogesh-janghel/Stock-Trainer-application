@@ -1,0 +1,29 @@
+{% extends 'BST_Template.html' %}
+
+{% block content %}
+
+<div class="container">
+    <script>
+        var plotDiv = document.getElementById('plot');
+        var plot = '{{ plot|safe }}'
+    </script>
+</div>
+
+<div class="container">
+    <p>Current Price - ₹{{ price }}</p>
+</div>
+
+<div class="container">
+    <form method="POST" action="/home/buyList/{{ stock_symbol }}">
+        <input type="number" name="BuyQuant" name="quantity" placeholder="Quantity" min="1"><br><br>
+        <button type="submit">Buy</button>
+    </form>
+</div>
+
+
+
+<div class="container">
+    <div class="msg">{{ msg }}</div>
+</div>
+
+{% endblock %}

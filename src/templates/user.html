@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link href="{{url_for('static' , filename = 'BL2.css')}}" rel="stylesheet" />
+  <title>Stock Trainer Application</title>
+  <style>p {text-align: center;padding:4px;}</style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="#page-top">Stock Trainer Application</a>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/home">Home</a>
+        </li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/home/buyList">Buy</a>
+        </li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/home/sellList">Sell</a>
+        </li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/home/transactions">Transactions</a></li>
+        </li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/logout">Logout</a></li>
+        </li>
+      </ul>
+    </div>
+
+  </nav>
+  <section class="masthead bg-primary text-white">
+    <div class="container_ABHI">
+      <div class="services_boxes_ABHI">
+        <div class="box_ABHI br_ABHI">
+          <i class="fa-solid fa-hotel"></i>
+          <h4>Shares Available</h4>
+          <table style="border-collapse: collapse; border: 2px solid black;">
+            <thead>
+                <tr>
+                    <th style="border: 2px solid black;"><p>Stock Symbol</p></th>
+                    <th style="border: 2px solid black;"><p>Shares Available</p></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result_set %}
+                <tr>
+                    <td style="border: 2px solid black;"><p>{{ row[0] }}</p></td>
+                    <td style="border: 2px solid black;"><p>{{ row[1] }}</p></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+    <div class="container_ABHI">
+      <div class="services_boxes_ABHI">
+        <div class="box_ABHI br_ABHI">
+          <i class="fa-solid fa-hotel"></i>
+          <h4>Transactions Buy</h4>
+          <table style="border-collapse: collapse; border: 2px solid black;">
+            <thead>
+                <tr>
+                    <th style="border: 2px solid black;"><p>Stock Symbol</p></th>
+                    <th style="border: 2px solid black;"><p>Buy Price</p></th>
+                    <th style="border: 2px solid black;"><p>Buy Quantity</p></th>
+                    <th style="border: 2px solid black;"><p>Total Amount Spent</p></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result_set2 %}
+                <tr>
+                    <td style="border: 2px solid black;"><p>{{ row[0] }}</p></td>
+                    <td style="border: 2px solid black;"><p>{{ row[1] }}</p></td>
+                    <td style="border: 2px solid black;"><p>{{ row[2] }}</p></td>
+                    <td style="border: 2px solid black;"><p>{{ row[3] }}</p></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+    <div class="container_ABHI">
+      <div class="services_boxes_ABHI">
+        <div class="box_ABHI br_ABHI">
+          <i class="fa-solid fa-hotel"></i>
+          <h4>Transactions Sell</h4>
+          <table style="border-collapse: collapse; border: 2px solid black;">
+            <thead>
+                <tr>
+                    <th style="border: 2px solid black;"><p>Stock Symbol</p></th>
+                    <th style="border: 2px solid black;"><p>Sell Price</p></th>
+                    <th style="border: 2px solid black;"><p>Sell Quantity</p></th>
+                    <th style="border: 2px solid black;"><p>Total Amount Gained</p></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result_set3 %}
+                <tr>
+                    <td style="border: 2px solid black;"><p>{{ row[0] }}</p></td>
+                    <td style="border: 2px solid black;"><p>{{ row[1] }}</p></td>
+                    <td style="border: 2px solid black;"><p>{{ row[2] }}</p></td>
+                    <td style="border: 2px solid black;"><p>{{ row[3] }}</p></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+
+</html>

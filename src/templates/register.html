@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Signup page</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+   </head>
+   <body>
+      <div class="center">
+         <div class="container">
+            <div class="text">
+               <h1>STOCK TRAINER SIMULATOR</h1>
+               <div>Please Signup to use the platform</div>
+            </div>
+            <div class="msg">{{ msg }}</div>
+            <form class="register-card-form" action="{{ url_for('register') }}" method="post">
+               <div class="data">
+                <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox"/>
+               </div>
+               <div class="data">
+                <input id="email" name="email" type="text" placeholder="Enter Your Email ID" class="textbox"/>
+             </div>
+               <div class="data">
+                <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox"/>
+               </div>
+
+               <div class="msg">
+                  <div class="inner"></div>
+                  <button type="submit">Sign Up</button>
+               </div>
+               <div class="signup-link">
+                  Already Registered? <a href="{{url_for('login')}}">Login</a>
+               </div>
+            </form>
+         </div>
+      </div>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,200,1,0"
+    />
+  </head>
+  <body>
+    <div class="login-card-container">
+      <div class="login-card">
+        
+        <div class="login-card-header">
+          <h1>STOCK TRAINER SIMULATOR</h1>
+          <div>Please login to use the platform</div>
+        </div>
+        <div class="msg">{{ msg }}</div>
+        <form class="login-card-form" action="{{ url_for('login') }}" method="post">
+          <div class="data">
+            <span class="form-item-icon material-symbols-rounded">mail</span>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              placeholder="Enter Your Username"
+              class="textbox"
+            />
+          </div>
+          <div class="data">
+            <span class="form-item-icon material-symbols-rounded">lock</span>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Enter Your Password"
+              class="textbox"
+            />
+          </div>
+
+          <div class="msg">
+            <div class="inner"></div>
+            <button type="submit">LOGIN</button>
+          </div>
+          <div class="signup-link">
+            Not a member? <a href="{{url_for('register')}}">Signup now</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
