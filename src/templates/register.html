@@ -1,40 +1,62 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-<html lang="en" dir="ltr">
-   <head>
-      <meta charset="utf-8">
-      <title>Signup page</title>
-      <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-   </head>
-   <body>
-      <div class="center">
-         <div class="container">
-            <div class="text">
-               <h1>STOCK TRAINER SIMULATOR</h1>
-               <div>Please Signup to use the platform</div>
+{% block title %}Register - Stock Trainer{% endblock %}
+
+{% block content %}
+<section class="masthead bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card p-4 p-md-5 shadow-lg border-0 mt-5">
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <div class="bg-gradient-green d-inline-block p-3 rounded-circle mb-3 shadow">
+                                <i class="fas fa-user-plus fa-2x text-white"></i>
+                            </div>
+                            <h2 class="text-uppercase font-weight-bold text-dark">Join the Market</h2>
+                            <p class="text-muted">Start your risk-free trading journey today</p>
+                        </div>
+                        
+                        {% if msg %}
+                        <div class="alert alert-info border-0 rounded-pill text-center small mb-4">{{ msg }}</div>
+                        {% endif %}
+
+                        <form action="{{ url_for('register') }}" method="post">
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <label class="small font-weight-bold text-secondary mb-1">Username</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0"><i class="fas fa-id-badge text-success"></i></span>
+                                        <input class="form-control border-start-0 ps-0" id="username" name="username" type="text" placeholder="Choose a username" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-4">
+                                    <label class="small font-weight-bold text-secondary mb-1">Email Address</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0"><i class="fas fa-envelope text-success"></i></span>
+                                        <input class="form-control border-start-0 ps-0" id="email" name="email" type="email" placeholder="name@example.com" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-4">
+                                    <label class="small font-weight-bold text-secondary mb-1">Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0"><i class="fas fa-shield-alt text-success"></i></span>
+                                        <input class="form-control border-start-0 ps-0" id="password" name="password" type="password" placeholder="Create a strong password" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-grid mt-5">
+                                <button class="btn btn-gradient btn-xl py-3" type="submit">Create Free Account</button>
+                            </div>
+                        </form>
+                        
+                        <div class="text-center mt-5">
+                            <p class="mb-0 text-muted small">Already a member? <a href="{{ url_for('login') }}" class="text-success font-weight-bold text-decoration-none">Log in here</a></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="msg">{{ msg }}</div>
-            <form class="register-card-form" action="{{ url_for('register') }}" method="post">
-               <div class="data">
-                <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox"/>
-               </div>
-               <div class="data">
-                <input id="email" name="email" type="text" placeholder="Enter Your Email ID" class="textbox"/>
-             </div>
-               <div class="data">
-                <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox"/>
-               </div>
-
-               <div class="msg">
-                  <div class="inner"></div>
-                  <button type="submit">Sign Up</button>
-               </div>
-               <div class="signup-link">
-                  Already Registered? <a href="{{url_for('login')}}">Login</a>
-               </div>
-            </form>
-         </div>
-      </div>
-  </body>
-</html>
+        </div>
+    </div>
+</section>
+{% endblock %}

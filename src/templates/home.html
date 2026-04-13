@@ -1,65 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <link href="{{url_for('static' , filename = 'BL2.css')}}" rel="stylesheet" />
-  <title>STOCK TRAINER APPLICATION</title>
-</head>
+{% block title %}Dashboard - Stock Trainer{% endblock %}
 
-<body>
-  <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+{% block content %}
+<section class="masthead bg-light">
     <div class="container">
-      <a class="navbar-brand" href="#page-top">Stock Trainer Application</a>
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/home">Home</a>
-        </li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/home/buyList">Buy</a>
-        </li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/home/sellList">Sell</a>
-        </li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/home/transactions">Transactions</a></li>
-        </li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/logout">Logout</a></li>
-        </li>
-      </ul>
-    </div>
-
-  </nav>
-
-  <!-- Header class  -->
-
-
-
-  <section class="masthead bg-primary text-white">
-    <div class="container d-flex align-items-center flex-column">
-      <img class="masthead-avatar mb-5" src="{{url_for('static' , filename = 'avataaars.svg')}}" alt="..." />
-
-    </div>
-    <div class="container1">
-      <div class="services_boxes">
-        <div class="box br">
-          <i class="fa-solid fa-hotel"></i>
-          <h4>Amount</h4>
-          <p>₹{{amount}}</p>
+        <!-- Dashboard Header with Green Gradient -->
+        <div class="row bg-gradient-green text-white p-5 rounded-4 shadow-lg mb-5 align-items-center">
+            <div class="col-md-2 text-center text-md-start mb-3 mb-md-0">
+                <div class="bg-white p-2 rounded-circle d-inline-block shadow-sm">
+                    <img class="img-fluid rounded-circle" src="{{ url_for('static', filename='avataaars.svg') }}" style="width: 80px;" alt="Avatar" />
+                </div>
+            </div>
+            <div class="col-md-7 text-center text-md-start">
+                <p class="mb-1 text-uppercase small font-weight-bold opacity-75">Welcome back</p>
+                <h1 class="display-5 font-weight-bold mb-0 text-white">{{ username }}!</h1>
+            </div>
+            <div class="col-md-3 text-center text-md-end mt-4 mt-md-0">
+                <a href="{{ url_for('refresh_prices') }}" class="btn btn-light text-success btn-lg shadow-sm border-0"><i class="fas fa-sync-alt me-2"></i>Live Prices</a>
+            </div>
         </div>
-        <div class="box br">
-          <i class="fa-solid fa-hotel"></i>
-          <h4>Username</h4>
-          <p>{{username}}</p>
+
+        <!-- Dashboard Stats with Green Accents -->
+        <div class="row text-dark mb-5">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 p-4 border-top border-success border-4">
+                    <div class="card-body text-center">
+                        <div class="bg-light p-3 rounded-circle d-inline-block mb-3">
+                            <i class="fas fa-wallet fa-2x text-success"></i>
+                        </div>
+                        <h4 class="text-uppercase text-secondary small font-weight-bold">Balance</h4>
+                        <h2 class="display-6 font-weight-bold text-success">₹{{ "{:,.2f}".format(amount) }}</h2>
+                        <small class="text-muted">Virtual Capital</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 p-4 border-top border-success border-4">
+                    <div class="card-body text-center">
+                        <div class="bg-light p-3 rounded-circle d-inline-block mb-3">
+                            <i class="fas fa-briefcase fa-2x text-success"></i>
+                        </div>
+                        <h4 class="text-uppercase text-secondary small font-weight-bold">Holdings</h4>
+                        <h2 class="display-6 font-weight-bold text-success">{{ shares|length }}</h2>
+                        <small class="text-muted">Active Positions</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 p-4 border-top border-success border-4">
+                    <div class="card-body">
+                        <h4 class="text-uppercase text-secondary small font-weight-bold text-center mb-4">Quick Trade</h4>
+                        <div class="d-grid gap-2">
+                            <a href="{{ url_for('listbuy') }}" class="btn btn-gradient btn-lg py-3">Explore Market</a>
+                            <a href="{{ url_for('transactions') }}" class="btn btn-outline-success">View Activity</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="box br">
-          <i class="fa-solid fa-hotel"></i>
-          <h4>Stocks Avaliable</h4>
-          <p>{{shares}}</p>
+
+        <!-- Portfolio Overview -->
+        <div class="row text-dark">
+            <div class="col-lg-12">
+                <div class="card p-4 shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="text-uppercase mb-0 text-secondary font-weight-bold"><i class="fas fa-list me-2 text-success"></i>Current Holdings</h4>
+                            {% if shares %}
+                                <a href="{{ url_for('listSell') }}" class="btn btn-sm btn-outline-danger">Sell All Mode</a>
+                            {% endif %}
+                        </div>
+                        {% if shares %}
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Stock Symbol</th>
+                                        <th class="text-end">Live Price Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for share in shares %}
+                                    <tr>
+                                        <td class="font-weight-bold text-dark fs-5">{{ share[0] }}</td>
+                                        <td class="text-end">
+                                            <a href="{{ url_for('buyShare', stock_symbol=share[0]) }}" class="btn btn-sm btn-success px-3 rounded-pill me-2">Buy More</a>
+                                            <a href="{{ url_for('sellShare', stock_symbol=share[0]) }}" class="btn btn-sm btn-danger px-3 rounded-pill">Sell</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="text-center py-5">
+                            <p class="lead text-muted">Your portfolio is currently empty.</p>
+                            <a href="{{ url_for('listbuy') }}" class="btn btn-gradient btn-lg px-5">Start Trading</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-
-  </section>
-
-</body>
-
-</html>
+</section>
+{% endblock %}

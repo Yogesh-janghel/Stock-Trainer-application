@@ -1,116 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <link href="{{url_for('static' , filename = 'BL2.css')}}" rel="stylesheet" />
-  <title>Stock Trainer Application</title>
-  <style>p {text-align: center;padding:4px;}</style>
-</head>
+{% block title %}Activity - Stock Trainer{% endblock %}
 
-<body>
-  <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand" href="#page-top">Stock Trainer Application</a>
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/home">Home</a>
-        </li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/home/buyList">Buy</a>
-        </li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/home/sellList">Sell</a>
-        </li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/home/transactions">Transactions</a></li>
-        </li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/logout">Logout</a></li>
-        </li>
-      </ul>
-    </div>
+{% block content %}
+<section class="masthead bg-primary text-white">
+    <div class="container text-dark">
+        <h2 class="page-section-heading text-center text-uppercase text-white mb-5">Portfolio & Activity</h2>
 
-  </nav>
-  <section class="masthead bg-primary text-white">
-    <div class="container_ABHI">
-      <div class="services_boxes_ABHI">
-        <div class="box_ABHI br_ABHI">
-          <i class="fa-solid fa-hotel"></i>
-          <h4>Shares Available</h4>
-          <table style="border-collapse: collapse; border: 2px solid black;">
-            <thead>
-                <tr>
-                    <th style="border: 2px solid black;"><p>Stock Symbol</p></th>
-                    <th style="border: 2px solid black;"><p>Shares Available</p></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in result_set %}
-                <tr>
-                    <td style="border: 2px solid black;"><p>{{ row[0] }}</p></td>
-                    <td style="border: 2px solid black;"><p>{{ row[1] }}</p></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <!-- Current Portfolio -->
+        <div class="row mb-5">
+            <div class="col-lg-12">
+                <div class="card p-4">
+                    <div class="card-body">
+                        <h4 class="text-uppercase mb-4 text-secondary"><i class="fas fa-briefcase me-2"></i>Holdings Summary</h4>
+                        {% if result_set %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Stock Symbol</th>
+                                        <th class="text-end">Shares Owned</th>
+                                        <th class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in result_set %}
+                                    <tr>
+                                        <td class="align-middle font-weight-bold">{{ row[0] }}</td>
+                                        <td class="text-end align-middle">{{ row[1] }}</td>
+                                        <td class="text-end">
+                                            <a href="{{ url_for('buyShare', stock_symbol=row[0]) }}" class="btn btn-sm btn-outline-success">Buy</a>
+                                            <a href="{{ url_for('sellShare', stock_symbol=row[0]) }}" class="btn btn-sm btn-outline-danger">Sell</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <p class="text-center py-3 text-muted">No holdings found.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="container_ABHI">
-      <div class="services_boxes_ABHI">
-        <div class="box_ABHI br_ABHI">
-          <i class="fa-solid fa-hotel"></i>
-          <h4>Transactions Buy</h4>
-          <table style="border-collapse: collapse; border: 2px solid black;">
-            <thead>
-                <tr>
-                    <th style="border: 2px solid black;"><p>Stock Symbol</p></th>
-                    <th style="border: 2px solid black;"><p>Buy Price</p></th>
-                    <th style="border: 2px solid black;"><p>Buy Quantity</p></th>
-                    <th style="border: 2px solid black;"><p>Total Amount Spent</p></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in result_set2 %}
-                <tr>
-                    <td style="border: 2px solid black;"><p>{{ row[0] }}</p></td>
-                    <td style="border: 2px solid black;"><p>{{ row[1] }}</p></td>
-                    <td style="border: 2px solid black;"><p>{{ row[2] }}</p></td>
-                    <td style="border: 2px solid black;"><p>{{ row[3] }}</p></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        </div>
-      </div>
-    </div>
-    <div class="container_ABHI">
-      <div class="services_boxes_ABHI">
-        <div class="box_ABHI br_ABHI">
-          <i class="fa-solid fa-hotel"></i>
-          <h4>Transactions Sell</h4>
-          <table style="border-collapse: collapse; border: 2px solid black;">
-            <thead>
-                <tr>
-                    <th style="border: 2px solid black;"><p>Stock Symbol</p></th>
-                    <th style="border: 2px solid black;"><p>Sell Price</p></th>
-                    <th style="border: 2px solid black;"><p>Sell Quantity</p></th>
-                    <th style="border: 2px solid black;"><p>Total Amount Gained</p></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in result_set3 %}
-                <tr>
-                    <td style="border: 2px solid black;"><p>{{ row[0] }}</p></td>
-                    <td style="border: 2px solid black;"><p>{{ row[1] }}</p></td>
-                    <td style="border: 2px solid black;"><p>{{ row[2] }}</p></td>
-                    <td style="border: 2px solid black;"><p>{{ row[3] }}</p></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </div>
-      </div>
-    </div>
-  </section>
 
-</body>
-
-</html>
+        <!-- Transaction History -->
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card h-100 p-4">
+                    <div class="card-body">
+                        <h4 class="text-uppercase mb-4 text-success"><i class="fas fa-shopping-cart me-2"></i>Recent Buys</h4>
+                        {% if result_set2 %}
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Stock</th>
+                                        <th class="text-end">Price</th>
+                                        <th class="text-end">Qty</th>
+                                        <th class="text-end">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in result_set2 %}
+                                    <tr>
+                                        <td>{{ row[0] }}</td>
+                                        <td class="text-end">₹{{ "{:,.2f}".format(row[1]) }}</td>
+                                        <td class="text-end">{{ row[2] }}</td>
+                                        <td class="text-end font-weight-bold">₹{{ "{:,.2f}".format(row[3]) }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <p class="text-center py-3 text-muted">No buy transactions.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card h-100 p-4">
+                    <div class="card-body">
+                        <h4 class="text-uppercase mb-4 text-danger"><i class="fas fa-hand-holding-usd me-2"></i>Recent Sells</h4>
+                        {% if result_set3 %}
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Stock</th>
+                                        <th class="text-end">Price</th>
+                                        <th class="text-end">Qty</th>
+                                        <th class="text-end">Gained</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in result_set3 %}
+                                    <tr>
+                                        <td>{{ row[0] }}</td>
+                                        <td class="text-end">₹{{ "{:,.2f}".format(row[1]) }}</td>
+                                        <td class="text-end">{{ row[2] }}</td>
+                                        <td class="text-end font-weight-bold">₹{{ "{:,.2f}".format(row[3]) }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <p class="text-center py-3 text-muted">No sell transactions.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

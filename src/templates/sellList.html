@@ -1,34 +1,32 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %}
+
+{% block title %}Sell Stocks - Stock Trainer{% endblock %}
 
 {% block content %}
-<h1>
-    Sell Stocks
-</h1>
-
-<ol>
-    <li><a href="/home/sellList/ADANIENT.NS">ADANIENT.NS</a></li>
-    <li><a href="/home/sellList/APOLLOHOSP.NS">APOLLOHOSP.NS</a></li>
-    <li><a href="/home/sellList/ITC.NS">ITC.NS</a></li>
-
-    <li><a href="/home/sellList/PAYTM.NS">PAYTM.NS</a></li>
-    <li><a href="/home/sellList/TRIDENT.NS">TRIDENT.NS</a></li>
-    <li><a href="/home/sellList/WIPRO.NS">WIPRO.NS</a></li>
-    <li><a href="/home/sellList/TCS.NS">TCS.NS</a></li>
-    <li><a href="/home/sellList/INFY.NS">INFY.NS</a></li>
-    <li><a href="/home/sellList/HCLTECH.NS">HCLTECH.NS</a></li>
-    <li><a href="/home/sellList/HINDUNILVR.NS">HINDUNILVR.NS</a></li>
-
-    <li><a href="/home/sellList/KOTAKBANK.NS">KOTAKBANK.NS</a></li>
-
-    <li><a href="/home/sellList/BHARTIARTL.NS">BHARTIARTL.NS</a></li>
-
-    <li><a href="/home/sellList/ADANIPORTS.NS">ADANIPORTS.NS</a></li>
-
-    <li><a href="/home/sellList/TATAMOTORS.NS">TATAMOTORS.NS</a></li>
-    <li><a href="/home/sellList/RELIANCE.NS">RELIANCE.NS</a></li>
-
-
-
-</ol>
-
-{%endblock%}
+<section class="masthead bg-primary text-white">
+    <div class="container text-dark">
+        <h2 class="page-section-heading text-center text-uppercase text-white mb-5">Sell Your Holdings</h2>
+        
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for stock in stocks %}
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title text-secondary mb-0">{{ stock.symbol }}</h5>
+                            {% if stock.current_price %}
+                            <span class="badge bg-danger">₹{{ stock.current_price }}</span>
+                            {% endif %}
+                        </div>
+                        <p class="card-text small text-muted mb-4">{{ stock.name }}</p>
+                        <div class="d-grid">
+                            <a href="{{ url_for('sellShare', stock_symbol=stock.symbol) }}" class="btn btn-danger">Analyze & Sell</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

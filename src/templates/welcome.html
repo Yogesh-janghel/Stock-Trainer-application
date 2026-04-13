@@ -1,76 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <link href="{{url_for('static' , filename = 'BL2.css')}}" rel="stylesheet" />
-  <title>STOCK TRAINER APPLICATION</title>
-</head>
+{% block title %}Welcome - Stock Trainer{% endblock %}
 
-<body>
-  <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+{% block content %}
+<header class="masthead bg-gradient-green text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+        <!-- Hero Content -->
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-8">
+                <img class="masthead-avatar mb-5" src="{{ url_for('static', filename='stock-market-clip-art-stock-market-removebg-preview.png') }}" alt="Stock Market" style="width: 250px;" />
+                <h1 class="masthead-heading text-uppercase mb-0" style="font-size: 4rem; line-height: 1;">Master the Market</h1>
+                <h2 class="masthead-subheading font-weight-light mb-0 mt-4" style="font-size: 1.5rem; opacity: 0.9;">Risk-free trading simulation with real-time Nifty 50 data.</h2>
+                
+                <!-- Divider -->
+                <div class="divider-custom divider-light mt-4">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+
+                <div class="mt-5 d-flex flex-column flex-sm-row justify-content-center align-items-center gap-4">
+                    {% if not session.get('loggedin') %}
+                        <a href="{{ url_for('register') }}" class="btn btn-xl btn-light text-success shadow-lg">Start Training Now</a>
+                        <a href="{{ url_for('login') }}" class="btn btn-xl btn-outline-light px-5">Member Login</a>
+                    {% else %}
+                        <a href="{{ url_for('home') }}" class="btn btn-xl btn-light text-success shadow-lg">Go to Dashboard</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div> 
+</header>
+
+<section class="page-section bg-white text-secondary py-5">
     <div class="container">
-      <a class="navbar-brand" href="#page-top">Stock Trainer Application</a>
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/register">Register</a></li>
-          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/login">Login</a></li>
-          </li>
-        </ul>
-    </div>
-
-  </nav>
-     <!-- Header class  -->
-     <header class="masthead bg-primary text-white text-center">
-      <div class="container d-flex align-items-center flex-column">
-          <!-- Masthead Avatar Image -->
-          <img class="masthead-avatar mb-5" src="{{url_for('static' , filename = 'stock-market-clip-art-stock-market-removebg-preview.png')}}" alt="..." />
-          <!-- Masthead Heading-->
-          <h1 class="masthead-heading text-uppercase mb-0">Welcome,</h1>
-          <h1 class="masthead-heading text-uppercase mb-0">To Stock Trainner application</h1>
-
-          <!-- Icon Divider -->
-          <div class="divider-custom divider-light">
-              <div class="divider-custom-line"></div>
-              <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-              <div class="divider-custom-line"></div>
-          </div>
-      </div> 
-  </header>
-   
-  <!-- <footer class="footer text-center">
-    <div class="container">
-        <div class="row"> -->
-            <!-- Footer Location-->
-            <!-- <div class="col-lg-4 mb-5 mb-lg-0">
-                <h4 class="text-uppercase mb-4">Location</h4>
-                <p class="lead mb-0">
-                    2215 John Daniel Drive
-                    <br />
-                    Clark, MO 65243
-                </p>
-            </div> -->
-            <!-- Footer Social Icons-->
-            <!-- <div class="col-lg-4 mb-5 mb-lg-0">
-                <h4 class="text-uppercase mb-4">Around the Web</h4>
-                <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
-                <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
-                <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
-                <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
-            </div> -->
-            <!-- Footer About Text-->
-            <!-- <div class="col-lg-4">
-                <h4 class="text-uppercase mb-4">About Freelancer</h4>
-                <p class="lead mb-0">
-                    Freelance is a free to use, MIT licensed Bootstrap theme created by
-                    <a href="http://startbootstrap.com">Start Bootstrap</a>
-                    .
-                </p>
+        <div class="row text-center">
+            <div class="col-md-4 mb-5">
+                <i class="fas fa-bolt fa-3x mb-3 text-success"></i>
+                <h4 class="text-uppercase">Real-time Data</h4>
+                <p>Track the Nifty 50 and global stocks with live price updates and interactive charts.</p>
+            </div>
+            <div class="col-md-4 mb-5">
+                <i class="fas fa-shield-alt fa-3x mb-3 text-success"></i>
+                <h4 class="text-uppercase">Risk Free</h4>
+                <p>Start with ₹5,00,000 in virtual capital. Practice your strategies without losing a penny.</p>
+            </div>
+            <div class="col-md-4 mb-5">
+                <i class="fas fa-graduation-cap fa-3x mb-3 text-success"></i>
+                <h4 class="text-uppercase">Learn Fast</h4>
+                <p>Analyze your transaction history and holdings to become a smarter investor.</p>
             </div>
         </div>
     </div>
-</footer> -->
-</body>
-
-</html>
+</section>
+{% endblock %}
