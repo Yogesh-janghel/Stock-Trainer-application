@@ -1,6 +1,11 @@
-# Stock Trainer Application (Modern Edition)
+# Stock Trainer Application 
 
 A professional-grade stock market trading simulator built with Python and Flask. This application provides a risk-free environment for users to learn trading strategies using real-time data from the Nifty 50 (NSE).
+
+## 🌐 Live Demo
+
+The application is live and accessible here:
+👉 https://stock-trainer-application.onrender.com/
 
 ## 🚀 Overview
 Originally built 4 years ago, this application has been modernized with a cloud-ready architecture, a robust ORM layer, and a sleek "Emerald Gradient" UI.
